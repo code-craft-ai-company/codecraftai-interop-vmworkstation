@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "automojo-interop-vmworkstation"
-description = "Automation Mojo - VMware Workstation CLI client (interop)"
+description = "Automation Mojo - VMware Workstation Interop Package"
 version = "0.0.1"
 authors = []
 readme = "README.rst"
@@ -13,16 +13,22 @@ classifiers = [
 keywords = [
     "python",
     "automation",
-    "automojo"
+    "automojo",
+    "vmware",
+    "workstation"
 ]
 packages = [{include="automojo", from="source/packages"}]
 
 [tool.poetry.dependencies]
 python = ">=3.10,<4.0"
+automojo-interfaces = { git = "https://github.com/automationmojo/automojo-interfaces.git", branch = "main" }
+automojo-testbase = { git = "https://github.com/automationmojo/automojo-testbase.git", branch = "main" }
 
 [tool.poetry.group.dev.dependencies]
 hypothesis = ">=6.0.0"
 pytest = ">=8.0.0"
+
+[tool.poetry.group.dbio.dependencies]
 
 [build-system]
 requires = ["poetry-core"]
