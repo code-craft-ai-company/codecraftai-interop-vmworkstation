@@ -25,7 +25,6 @@ from typing import List, Optional
 from automojo.interfaces.icommandrunner import ICommandRunner, RunResult
 
 from automojo.interop.vmworkstation.aspectsvmworkstation import (
-    DEFAULT_VMWORKSTATION_ASPECTS,
     AspectsVMWorkstation,
 )
 from automojo.interop.vmworkstation.exceptions import (
@@ -33,6 +32,7 @@ from automojo.interop.vmworkstation.exceptions import (
     VMWorkstationParseError,
 )
 from automojo.interop.vmworkstation.guestcredential import GuestCredential
+from automojo.interop.vmworkstation.redaction import redact_argv
 from automojo.interop.vmworkstation.results import (
     GuestExecResult,
     ToolsState,
@@ -142,7 +142,7 @@ class VMWorkstationClient:
         *,
         vmx_path: str,
         gui: bool = False,
-        aspects: AspectsVMWorkstation = DEFAULT_VMWORKSTATION_ASPECTS,
+        aspects: Optional[AspectsVMWorkstation] = None,
     ) -> VMWorkstationActionResult:
         """
             Start a powered-off VM.
@@ -180,7 +180,7 @@ class VMWorkstationClient:
         *,
         vmx_path: str,
         hard: bool = False,
-        aspects: AspectsVMWorkstation = DEFAULT_VMWORKSTATION_ASPECTS,
+        aspects: Optional[AspectsVMWorkstation] = None,
     ) -> VMWorkstationActionResult:
         """
             Stop a running VM.
@@ -217,7 +217,7 @@ class VMWorkstationClient:
         self,
         *,
         vmx_path: str,
-        aspects: AspectsVMWorkstation = DEFAULT_VMWORKSTATION_ASPECTS,
+        aspects: Optional[AspectsVMWorkstation] = None,
     ) -> VMWorkstationActionResult:
         """
             Suspend a running VM.
@@ -248,7 +248,7 @@ class VMWorkstationClient:
         *,
         vmx_path: str,
         hard: bool = False,
-        aspects: AspectsVMWorkstation = DEFAULT_VMWORKSTATION_ASPECTS,
+        aspects: Optional[AspectsVMWorkstation] = None,
     ) -> VMWorkstationActionResult:
         """
             Reset a running VM.
@@ -290,7 +290,7 @@ class VMWorkstationClient:
         *,
         vmx_path: str,
         name: str,
-        aspects: AspectsVMWorkstation = DEFAULT_VMWORKSTATION_ASPECTS,
+        aspects: Optional[AspectsVMWorkstation] = None,
     ) -> VMWorkstationActionResult:
         """
             Create a snapshot.
@@ -322,7 +322,7 @@ class VMWorkstationClient:
         *,
         vmx_path: str,
         name: str,
-        aspects: AspectsVMWorkstation = DEFAULT_VMWORKSTATION_ASPECTS,
+        aspects: Optional[AspectsVMWorkstation] = None,
     ) -> VMWorkstationActionResult:
         """
             Revert the VM to a named snapshot.
@@ -354,7 +354,7 @@ class VMWorkstationClient:
         *,
         vmx_path: str,
         name: str,
-        aspects: AspectsVMWorkstation = DEFAULT_VMWORKSTATION_ASPECTS,
+        aspects: Optional[AspectsVMWorkstation] = None,
     ) -> VMWorkstationActionResult:
         """
             Delete a named snapshot.
@@ -385,7 +385,7 @@ class VMWorkstationClient:
         self,
         *,
         vmx_path: str,
-        aspects: AspectsVMWorkstation = DEFAULT_VMWORKSTATION_ASPECTS,
+        aspects: Optional[AspectsVMWorkstation] = None,
     ) -> List[SnapshotRecord]:
         """
             List snapshots for a VM.
@@ -425,7 +425,7 @@ class VMWorkstationClient:
         args: Optional[List[str]] = None,
         no_wait: bool = False,
         active_window: bool = False,
-        aspects: AspectsVMWorkstation = DEFAULT_VMWORKSTATION_ASPECTS,
+        aspects: Optional[AspectsVMWorkstation] = None,
     ) -> GuestExecResult:
         """
             Run a program inside the guest OS via VMware Tools.
@@ -481,7 +481,7 @@ class VMWorkstationClient:
         guest_credential: GuestCredential,
         source: str,
         target: str,
-        aspects: AspectsVMWorkstation = DEFAULT_VMWORKSTATION_ASPECTS,
+        aspects: Optional[AspectsVMWorkstation] = None,
     ) -> VMWorkstationActionResult:
         """
             Copy a file from the host into the guest.
@@ -522,7 +522,7 @@ class VMWorkstationClient:
         guest_credential: GuestCredential,
         source: str,
         target: str,
-        aspects: AspectsVMWorkstation = DEFAULT_VMWORKSTATION_ASPECTS,
+        aspects: Optional[AspectsVMWorkstation] = None,
     ) -> VMWorkstationActionResult:
         """
             Copy a file from the guest into the host.
@@ -562,7 +562,7 @@ class VMWorkstationClient:
         self,
         *,
         vmx_path: str,
-        aspects: AspectsVMWorkstation = DEFAULT_VMWORKSTATION_ASPECTS,
+        aspects: Optional[AspectsVMWorkstation] = None,
     ) -> ToolsState:
         """
             Return the VMware Tools state inside the guest.
@@ -594,7 +594,7 @@ class VMWorkstationClient:
     def list_running(
         self,
         *,
-        aspects: AspectsVMWorkstation = DEFAULT_VMWORKSTATION_ASPECTS,
+        aspects: Optional[AspectsVMWorkstation] = None,
     ) -> List[str]:
         """
             List the VMX paths of running VMs.
@@ -647,13 +647,14 @@ class VMWorkstationClient:
             return rtnval
 
         argv = self._dispatcher.build_argv(subcommand_args=subcommand_args)
+        safe_argv = redact_argv(argv=argv)
         rtnval = VMWorkstationActionResult(
             status=VMWorkstationActionStatus.DRY_RUN,
             detail=detail,
             exit_code=None,
             stdout=None,
             stderr=None,
-            command=argv,
+            command=safe_argv,
         )
         return rtnval
 
@@ -662,7 +663,7 @@ class VMWorkstationClient:
         *,
         subcommand_args: List[str],
         detail: str,
-        aspects: AspectsVMWorkstation,
+        aspects: Optional[AspectsVMWorkstation] = None,
     ) -> RunResult:
         """
             Dispatch a read-only ``vmrun`` invocation and return the raw
@@ -671,22 +672,31 @@ class VMWorkstationClient:
             :param subcommand_args: The trailing ``vmrun`` subcommand and
                 its parameters.
             :param detail: Free-form description used in error messages.
-            :param aspects: Behaviour controls.
+            :param aspects: Behaviour controls. When ``None`` a fresh
+                default :class:`AspectsVMWorkstation` is used.
 
             :returns: The raw :class:`RunResult`.
             :raises VMRunCommandError: When ``vmrun`` exits non-zero.
         """
+        if aspects is None:
+            resolved_aspects = AspectsVMWorkstation()
+        else:
+            resolved_aspects = aspects
+
         argv = self._dispatcher.build_argv(subcommand_args=subcommand_args)
         run_result: RunResult = self._runner.run(
             list(argv),
-            elevated=aspects.elevated,
-            timeout=aspects.command_timeout,
+            elevated=resolved_aspects.elevated,
+            timeout=resolved_aspects.command_timeout,
         )
 
         if run_result.exit_code != 0:
+            safe_argv = redact_argv(argv=argv)
             err_msg_lines = ["vmrun read invocation failed."]
             err_msg_lines.append("    DETAIL: {}".format(detail))
-            err_msg_lines.append("    COMMAND: {}".format(" ".join(argv)))
+            err_msg_lines.append(
+                "    COMMAND: {}".format(" ".join(safe_argv)),
+            )
             err_msg_lines.append(
                 "    EXIT_CODE: {}".format(run_result.exit_code),
             )
@@ -697,7 +707,7 @@ class VMWorkstationClient:
                 exit_code=run_result.exit_code,
                 stdout=run_result.stdout,
                 stderr=run_result.stderr,
-                command=argv,
+                command=safe_argv,
             )
 
         rtnval = run_result
@@ -708,7 +718,7 @@ class VMWorkstationClient:
         *,
         subcommand_args: List[str],
         detail: str,
-        aspects: AspectsVMWorkstation,
+        aspects: Optional[AspectsVMWorkstation] = None,
     ) -> VMWorkstationActionResult:
         """
             Dispatch a guest-exec ``vmrun`` invocation, honouring dry-run.
@@ -716,7 +726,8 @@ class VMWorkstationClient:
             :param subcommand_args: The trailing ``vmrun`` subcommand and
                 its parameters.
             :param detail: Free-form description carried on the result.
-            :param aspects: Behaviour controls.
+            :param aspects: Behaviour controls. When ``None`` the dispatcher
+                applies a fresh default :class:`AspectsVMWorkstation`.
 
             :returns: The :class:`VMWorkstationActionResult`.
         """

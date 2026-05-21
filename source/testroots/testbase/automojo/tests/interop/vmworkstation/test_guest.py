@@ -38,14 +38,20 @@ def _fail() -> RunResult:
 
 
 def test_run_program_in_guest_minimal_argv() -> None:
-    expected = [
+    dispatched = [
         "vmrun", "-T", "ws",
         "-gu", "u", "-gp", "p",
         "runProgramInGuest", _VMX,
         "/bin/true",
     ]
+    redacted = [
+        "vmrun", "-T", "ws",
+        "-gu", "u", "-gp", "<redacted>",
+        "runProgramInGuest", _VMX,
+        "/bin/true",
+    ]
     runner = MockCommandRunner()
-    runner.seed(argv=expected, result=_ok())
+    runner.seed(argv=dispatched, result=_ok())
     client = VMWorkstationClient(runner=runner)
 
     result = client.run_program_in_guest(
@@ -55,19 +61,26 @@ def test_run_program_in_guest_minimal_argv() -> None:
     )
 
     assert result.status == VMWorkstationActionStatus.SUCCESS
-    assert result.command == expected
+    assert result.command == redacted
 
 
 def test_run_program_in_guest_full_argv() -> None:
-    expected = [
+    dispatched = [
         "vmrun", "-T", "ws",
         "-gu", "u", "-gp", "p",
         "runProgramInGuest", _VMX,
         "-noWait", "-activeWindow",
         "/bin/echo", "hello", "world",
     ]
+    redacted = [
+        "vmrun", "-T", "ws",
+        "-gu", "u", "-gp", "<redacted>",
+        "runProgramInGuest", _VMX,
+        "-noWait", "-activeWindow",
+        "/bin/echo", "hello", "world",
+    ]
     runner = MockCommandRunner()
-    runner.seed(argv=expected, result=_ok())
+    runner.seed(argv=dispatched, result=_ok())
     client = VMWorkstationClient(runner=runner)
 
     result = client.run_program_in_guest(
@@ -79,7 +92,7 @@ def test_run_program_in_guest_full_argv() -> None:
         active_window=True,
     )
 
-    assert result.command == expected
+    assert result.command == redacted
 
 
 def test_run_program_in_guest_failure() -> None:
@@ -104,14 +117,20 @@ def test_run_program_in_guest_failure() -> None:
 
 
 def test_copy_file_to_guest_argv() -> None:
-    expected = [
+    dispatched = [
         "vmrun", "-T", "ws",
         "-gu", "u", "-gp", "p",
         "copyFileFromHostToGuest", _VMX,
         "/host/a", "/guest/a",
     ]
+    redacted = [
+        "vmrun", "-T", "ws",
+        "-gu", "u", "-gp", "<redacted>",
+        "copyFileFromHostToGuest", _VMX,
+        "/host/a", "/guest/a",
+    ]
     runner = MockCommandRunner()
-    runner.seed(argv=expected, result=_ok())
+    runner.seed(argv=dispatched, result=_ok())
     client = VMWorkstationClient(runner=runner)
 
     result = client.copy_file_to_guest(
@@ -121,18 +140,24 @@ def test_copy_file_to_guest_argv() -> None:
         target="/guest/a",
     )
 
-    assert result.command == expected
+    assert result.command == redacted
 
 
 def test_copy_file_from_guest_argv() -> None:
-    expected = [
+    dispatched = [
         "vmrun", "-T", "ws",
         "-gu", "u", "-gp", "p",
         "copyFileFromGuestToHost", _VMX,
         "/guest/a", "/host/a",
     ]
+    redacted = [
+        "vmrun", "-T", "ws",
+        "-gu", "u", "-gp", "<redacted>",
+        "copyFileFromGuestToHost", _VMX,
+        "/guest/a", "/host/a",
+    ]
     runner = MockCommandRunner()
-    runner.seed(argv=expected, result=_ok())
+    runner.seed(argv=dispatched, result=_ok())
     client = VMWorkstationClient(runner=runner)
 
     result = client.copy_file_from_guest(
@@ -142,7 +167,7 @@ def test_copy_file_from_guest_argv() -> None:
         target="/host/a",
     )
 
-    assert result.command == expected
+    assert result.command == redacted
 
 
 def test_run_program_in_guest_dry_run() -> None:
