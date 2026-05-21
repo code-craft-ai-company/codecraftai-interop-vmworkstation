@@ -19,7 +19,7 @@ __credits__ = []
 
 import os
 
-from typing import List
+from typing import List, Optional
 
 from automojo.interfaces.icommandrunner import ICommandRunner, RunResult
 
@@ -27,6 +27,7 @@ from automojo.interop.vmworkstation.aspectsvmworkstation import (
     AspectsVMWorkstation,
 )
 from automojo.interop.vmworkstation.exceptions import VMRunCommandError
+from automojo.interop.vmworkstation.redaction import redact_argv
 from automojo.interop.vmworkstation.results import (
     VMWorkstationActionResult,
     VMWorkstationActionStatus,
@@ -96,7 +97,7 @@ class VMRunDispatcher:
         *,
         subcommand_args: List[str],
         detail: str,
-        aspects: AspectsVMWorkstation,
+        aspects: Optional[AspectsVMWorkstation] = None,
     ) -> VMWorkstationActionResult:
         """
             Build argv, run it through the runner, and map the
@@ -107,19 +108,27 @@ class VMRunDispatcher:
             :param detail: Free-form description carried on the result for
                 debuggability.
             :param aspects: Behaviour controls
-                (elevation, raise-on-failure, timeout).
+                (elevation, raise-on-failure, timeout). When ``None`` a
+                fresh default :class:`AspectsVMWorkstation` is used.
 
             :returns: The :class:`VMWorkstationActionResult`.
             :raises VMRunCommandError: When the invocation exits non-zero
                 and ``aspects.raise_on_failure`` is True.
         """
+        if aspects is None:
+            resolved_aspects = AspectsVMWorkstation()
+        else:
+            resolved_aspects = aspects
+
         argv = self.build_argv(subcommand_args=subcommand_args)
 
         run_result: RunResult = self._runner.run(
             list(argv),
-            elevated=aspects.elevated,
-            timeout=aspects.command_timeout,
+            elevated=resolved_aspects.elevated,
+            timeout=resolved_aspects.command_timeout,
         )
+
+        safe_argv = redact_argv(argv=argv)
 
         exit_code = run_result.exit_code
         if exit_code == 0:
@@ -133,14 +142,16 @@ class VMRunDispatcher:
             exit_code=exit_code,
             stdout=run_result.stdout,
             stderr=run_result.stderr,
-            command=argv,
+            command=safe_argv,
         )
 
         if mapped_status == VMWorkstationActionStatus.FAILED:
-            if aspects.raise_on_failure is True:
+            if resolved_aspects.raise_on_failure is True:
                 err_msg_lines = ["vmrun invocation failed."]
                 err_msg_lines.append("    DETAIL: {}".format(detail))
-                err_msg_lines.append("    COMMAND: {}".format(" ".join(argv)))
+                err_msg_lines.append(
+                    "    COMMAND: {}".format(" ".join(safe_argv)),
+                )
                 err_msg_lines.append("    EXIT_CODE: {}".format(exit_code))
                 err_msg_lines.append(
                     "    STDERR: {}".format(run_result.stderr),
@@ -151,7 +162,7 @@ class VMRunDispatcher:
                     exit_code=exit_code,
                     stdout=run_result.stdout,
                     stderr=run_result.stderr,
-                    command=argv,
+                    command=safe_argv,
                 )
 
         return rtnval

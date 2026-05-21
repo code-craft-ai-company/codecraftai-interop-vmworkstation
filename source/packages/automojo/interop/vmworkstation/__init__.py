@@ -21,6 +21,7 @@ from automojo.interop.vmworkstation.exceptions import (
     VMWorkstationParseError,
 )
 from automojo.interop.vmworkstation.guestcredential import GuestCredential
+from automojo.interop.vmworkstation.redaction import redact_argv
 from automojo.interop.vmworkstation.results import (
     GuestExecResult,
     ToolsState,
@@ -36,6 +37,7 @@ __all__ = [
     "DEFAULT_VMWORKSTATION_ASPECTS",
     "GuestCredential",
     "GuestExecResult",
+    "redact_argv",
     "SnapshotRecord",
     "ToolsState",
     "VMRunCommandError",
