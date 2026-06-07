@@ -4,10 +4,10 @@
 
 The `vmworkstation-client` feature delivers `VMWorkstationClient`, the dedicated
 client for driving VMware Workstation through the `vmrun` CLI. It replaces the
-legacy `automojo-landscaping/services/vmware/vmworkstationagent.py`.
+legacy `codecraftai-landscaping/services/vmware/vmworkstationagent.py`.
 
-The client is built on `ICommandRunner` (from `automojo-interfaces`) — the same
-abstraction firewall management, package management, and other CLI-shaped automojo
+The client is built on `ICommandRunner` (from `codecraftai-interfaces`) — the same
+abstraction firewall management, package management, and other CLI-shaped ccai
 features use. This means the same `VMWorkstationClient` instance works:
 
 - locally against a Workstation install on the same host (via `LocalCommandRunner`)

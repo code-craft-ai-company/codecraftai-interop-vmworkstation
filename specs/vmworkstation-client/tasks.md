@@ -1,6 +1,6 @@
 # Implementation Plan — VMWorkstation Client
 
-- [x] 1. Create `automojo.interop.vmworkstation` package skeleton.
+- [x] 1. Create `ccai.interop.vmworkstation` package skeleton.
 
 - [x] 2. Define result types and exceptions in `results.py` and `snapshots.py`.
 

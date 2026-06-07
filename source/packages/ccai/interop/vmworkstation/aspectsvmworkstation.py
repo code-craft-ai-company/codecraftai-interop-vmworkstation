@@ -8,14 +8,14 @@
 """
 
 __author__ = "Myron Walker"
-__copyright__ = "Copyright 2026, Automation Mojo LLC"
+__copyright__ = "Copyright 2026, Code Craft AI LLC"
 __credits__ = []
 
 
 from dataclasses import dataclass
 from typing import Optional
 
-from automojo.aspects.aspects import Aspects
+from ccai.aspects.aspects import Aspects
 
 
 @dataclass

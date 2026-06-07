@@ -5,11 +5,11 @@
 `VMWorkstationClient` is a small CLI-shaped client built on `ICommandRunner`. It
 provides typed wrappers around the relevant `vmrun` subcommands for VM lifecycle,
 snapshot lifecycle, guest exec, and inventory. Output parsing is pure Python; no
-external dependencies beyond `automojo-interfaces`.
+external dependencies beyond `codecraftai-interfaces`.
 
-The client is deliberately scoped narrower than `automojo-interop-vsphere`:
+The client is deliberately scoped narrower than `codecraftai-interop-vsphere`:
 Workstation is a developer / lab tool, not a primary provisioning venue. The
-surface area covers what automojo workflows actually use against Workstation hosts,
+surface area covers what ccai workflows actually use against Workstation hosts,
 and stops there.
 
 ---
@@ -34,7 +34,7 @@ and stops there.
                       │ delegates to
                       ▼
 ┌──────────────────────────────────────────────────────────┐
-│   ICommandRunner (automojo-interfaces)                   │
+│   ICommandRunner (codecraftai-interfaces)                   │
 └──────────┬─────────────────────────┬─────────────────────┘
            ▼                         ▼
 ┌─────────────────────┐    ┌─────────────────────┐
@@ -119,7 +119,7 @@ class GuestCredential:
 ## Module Layout
 
 ```
-source/packages/automojo/interop/vmworkstation/
+source/packages/ccai/interop/vmworkstation/
 ├── __init__.py
 ├── vmworkstationclient.py      # VMWorkstationClient + config
 ├── results.py                  # VMWorkstationActionResult, GuestExecResult, etc.
@@ -132,8 +132,8 @@ source/packages/automojo/interop/vmworkstation/
 
 ## See Also
 
-- `automojo-interfaces.icommandrunner` — the transport contract.
-- `automojo-interop-vsphere` — the sibling REST-shaped client for vCenter; deliberately
+- `codecraftai-interfaces.icommandrunner` — the transport contract.
+- `codecraftai-interop-vsphere` — the sibling REST-shaped client for vCenter; deliberately
   separate because the protocols are unrelated.
 
 ---

@@ -7,29 +7,29 @@
 """
 
 __author__ = "Myron Walker"
-__copyright__ = "Copyright 2026, Automation Mojo LLC"
+__copyright__ = "Copyright 2026, Code Craft AI LLC"
 __credits__ = []
 
 
-from automojo.interop.vmworkstation.aspectsvmworkstation import (
+from ccai.interop.vmworkstation.aspectsvmworkstation import (
     AspectsVMWorkstation,
     DEFAULT_VMWORKSTATION_ASPECTS,
 )
-from automojo.interop.vmworkstation.exceptions import (
+from ccai.interop.vmworkstation.exceptions import (
     VMWorkstationError,
     VMRunCommandError,
     VMWorkstationParseError,
 )
-from automojo.interop.vmworkstation.guestcredential import GuestCredential
-from automojo.interop.vmworkstation.redaction import redact_argv
-from automojo.interop.vmworkstation.results import (
+from ccai.interop.vmworkstation.guestcredential import GuestCredential
+from ccai.interop.vmworkstation.redaction import redact_argv
+from ccai.interop.vmworkstation.results import (
     GuestExecResult,
     ToolsState,
     VMWorkstationActionResult,
     VMWorkstationActionStatus,
 )
-from automojo.interop.vmworkstation.snapshots import SnapshotRecord
-from automojo.interop.vmworkstation.vmworkstationclient import VMWorkstationClient
+from ccai.interop.vmworkstation.snapshots import SnapshotRecord
+from ccai.interop.vmworkstation.vmworkstationclient import VMWorkstationClient
 
 
 __all__ = [

@@ -7,9 +7,9 @@ import os
 
 import pytest
 
-from automojo.interfaces.icommandrunner import RunResult
+from ccai.interfaces.icommandrunner import RunResult
 
-from automojo.interop.vmworkstation import (
+from ccai.interop.vmworkstation import (
     GuestCredential,
     ToolsState,
     VMRunCommandError,
@@ -17,7 +17,7 @@ from automojo.interop.vmworkstation import (
     VMWorkstationClient,
 )
 
-from automojo.tests.interop.vmworkstation.mockcommandrunner import (
+from ccai.tests.interop.vmworkstation.mockcommandrunner import (
     MockCommandRunner,
 )
 

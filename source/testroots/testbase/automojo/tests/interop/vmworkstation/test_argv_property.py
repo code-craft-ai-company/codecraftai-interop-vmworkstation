@@ -4,11 +4,11 @@
 
 from hypothesis import given, strategies as st
 
-from automojo.interfaces.icommandrunner import RunResult
+from ccai.interfaces.icommandrunner import RunResult
 
-from automojo.interop.vmworkstation import VMWorkstationClient
+from ccai.interop.vmworkstation import VMWorkstationClient
 
-from automojo.tests.interop.vmworkstation.mockcommandrunner import (
+from ccai.tests.interop.vmworkstation.mockcommandrunner import (
     MockCommandRunner,
 )
 

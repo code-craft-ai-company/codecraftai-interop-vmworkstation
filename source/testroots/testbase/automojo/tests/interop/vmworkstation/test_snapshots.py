@@ -6,20 +6,20 @@ import os
 
 import pytest
 
-from automojo.interfaces.icommandrunner import RunResult
+from ccai.interfaces.icommandrunner import RunResult
 
-from automojo.interop.vmworkstation import (
+from ccai.interop.vmworkstation import (
     VMRunCommandError,
     VMWorkstationActionStatus,
     VMWorkstationClient,
     VMWorkstationParseError,
 )
-from automojo.interop.vmworkstation.snapshots import (
+from ccai.interop.vmworkstation.snapshots import (
     parse_list_snapshots,
     parse_list_running,
 )
 
-from automojo.tests.interop.vmworkstation.mockcommandrunner import (
+from ccai.tests.interop.vmworkstation.mockcommandrunner import (
     MockCommandRunner,
 )
 

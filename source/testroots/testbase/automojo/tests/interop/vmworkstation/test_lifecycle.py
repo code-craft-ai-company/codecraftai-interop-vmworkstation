@@ -4,19 +4,19 @@
 
 import pytest
 
-from automojo.interfaces.icommandrunner import RunResult
+from ccai.interfaces.icommandrunner import RunResult
 
-from automojo.interop.vmworkstation import (
+from ccai.interop.vmworkstation import (
     DEFAULT_VMWORKSTATION_ASPECTS,
     VMRunCommandError,
     VMWorkstationActionStatus,
     VMWorkstationClient,
 )
-from automojo.interop.vmworkstation.aspectsvmworkstation import (
+from ccai.interop.vmworkstation.aspectsvmworkstation import (
     AspectsVMWorkstation,
 )
 
-from automojo.tests.interop.vmworkstation.mockcommandrunner import (
+from ccai.tests.interop.vmworkstation.mockcommandrunner import (
     MockCommandRunner,
 )
 
