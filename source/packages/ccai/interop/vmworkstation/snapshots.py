@@ -8,7 +8,7 @@
 """
 
 __author__ = "Myron Walker"
-__copyright__ = "Copyright 2026, Automation Mojo LLC"
+__copyright__ = "Copyright 2026, Code Craft AI LLC"
 __credits__ = []
 
 
@@ -17,7 +17,7 @@ import os
 from dataclasses import dataclass
 from typing import List, Optional
 
-from automojo.interop.vmworkstation.exceptions import VMWorkstationParseError
+from ccai.interop.vmworkstation.exceptions import VMWorkstationParseError
 
 
 @dataclass

@@ -1,6 +1,6 @@
 """
     Pytest bootstrap: add the testroots tree to ``sys.path`` so test-only
-    helpers under ``automojo.tests.*`` (PEP 420 namespace) resolve without
+    helpers under ``ccai.tests.*`` (PEP 420 namespace) resolve without
     requiring an editable install.
 """
 

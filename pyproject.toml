@@ -1,6 +1,6 @@
 [tool.poetry]
-name = "automojo-interop-vmworkstation"
-description = "Automation Mojo - VMware Workstation Interop Package"
+name = "codecraftai-interop-vmworkstation"
+description = "Code Craft AI - VMware Workstation Interop Package"
 version = "0.0.1"
 authors = []
 readme = "README.rst"
@@ -13,16 +13,16 @@ classifiers = [
 keywords = [
     "python",
     "automation",
-    "automojo",
+    "ccai",
     "vmware",
     "workstation"
 ]
-packages = [{include="automojo", from="source/packages"}]
+packages = [{include="ccai", from="source/packages"}]
 
 [tool.poetry.dependencies]
 python = ">=3.10,<4.0"
-automojo-interfaces = { git = "https://github.com/automationmojo/automojo-interfaces.git", branch = "main" }
-automojo-testbase = { git = "https://github.com/automationmojo/automojo-testbase.git", branch = "main" }
+codecraftai-interfaces = { git = "https://github.com/automationmojo/codecraftai-interfaces.git", branch = "main" }
+codecraftai-testbase = { git = "https://github.com/automationmojo/codecraftai-testbase.git", branch = "main" }
 
 [tool.poetry.group.dev.dependencies]
 hypothesis = ">=6.0.0"

@@ -14,7 +14,7 @@
 """
 
 __author__ = "Myron Walker"
-__copyright__ = "Copyright 2026, Automation Mojo LLC"
+__copyright__ = "Copyright 2026, Code Craft AI LLC"
 __credits__ = []
 
 
@@ -22,29 +22,29 @@ import os
 
 from typing import List, Optional
 
-from automojo.interfaces.icommandrunner import ICommandRunner, RunResult
+from ccai.interfaces.icommandrunner import ICommandRunner, RunResult
 
-from automojo.interop.vmworkstation.aspectsvmworkstation import (
+from ccai.interop.vmworkstation.aspectsvmworkstation import (
     AspectsVMWorkstation,
 )
-from automojo.interop.vmworkstation.exceptions import (
+from ccai.interop.vmworkstation.exceptions import (
     VMRunCommandError,
     VMWorkstationParseError,
 )
-from automojo.interop.vmworkstation.guestcredential import GuestCredential
-from automojo.interop.vmworkstation.redaction import redact_argv
-from automojo.interop.vmworkstation.results import (
+from ccai.interop.vmworkstation.guestcredential import GuestCredential
+from ccai.interop.vmworkstation.redaction import redact_argv
+from ccai.interop.vmworkstation.results import (
     GuestExecResult,
     ToolsState,
     VMWorkstationActionResult,
     VMWorkstationActionStatus,
 )
-from automojo.interop.vmworkstation.snapshots import (
+from ccai.interop.vmworkstation.snapshots import (
     SnapshotRecord,
     parse_list_running,
     parse_list_snapshots,
 )
-from automojo.interop.vmworkstation.vmrundispatcher import VMRunDispatcher
+from ccai.interop.vmworkstation.vmrundispatcher import VMRunDispatcher
 
 
 _DEFAULT_VMRUN_PATH = "vmrun"

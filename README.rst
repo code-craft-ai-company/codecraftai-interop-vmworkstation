@@ -1,10 +1,10 @@
 ==============================================
-Automation Mojo Interop - VMware Workstation
+Code Craft AI Interop - VMware Workstation
 ==============================================
 
-The ``automojo-interop-vmworkstation`` package is a typed, aspect-driven client for VMware Workstation that drives the local ``vmrun`` CLI tool. Unlike its sibling ``automojo-interop-vsphere``, this package does **not** build on ``RestClientBase`` — Workstation has no REST API. Instead it uses ``ICommandRunner`` from ``automojo-interfaces`` to dispatch ``vmrun`` argv tuples and parse the textual output.
+The ``codecraftai-interop-vmworkstation`` package is a typed, aspect-driven client for VMware Workstation that drives the local ``vmrun`` CLI tool. Unlike its sibling ``codecraftai-interop-vsphere``, this package does **not** build on ``RestClientBase`` — Workstation has no REST API. Instead it uses ``ICommandRunner`` from ``codecraftai-interfaces`` to dispatch ``vmrun`` argv tuples and parse the textual output.
 
-The package replaces the legacy ``VMWorkstationAgent`` that lived under ``automojo-landscaping/services/vmware/``.
+The package replaces the legacy ``VMWorkstationAgent`` that lived under ``codecraftai-landscaping/services/vmware/``.
 
 Highlights
 ==========
@@ -22,8 +22,8 @@ Repository Structure
 
 - ``development/`` - Runtime environment scripts.
 - ``repository-setup/`` - Repository homing and setup scripts.
-- ``source/packages/automojo/interop/vmworkstation/`` - Package source code.
-- ``source/testroots/testbase/automojo/tests/interop/vmworkstation/`` - TestBase test roots.
+- ``source/packages/ccai/interop/vmworkstation/`` - Package source code.
+- ``source/testroots/testbase/ccai/tests/interop/vmworkstation/`` - TestBase test roots.
 - ``specs/`` - Requirements, design, and task documentation (Kiro-style).
 - ``userguide/`` - Standards, conventions, and documentation.
 
