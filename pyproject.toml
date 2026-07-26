@@ -26,7 +26,6 @@ codecraftai-interop = { git = "https://github.com/automationmojo/codecraftai-int
 
 [tool.poetry.group.dev.dependencies]
 codecraftai-testbase = { git = "https://github.com/automationmojo/codecraftai-testbase.git", branch = "main" }
-hypothesis = ">=6.0.0"
 pytest = ">=8.0.0"
 
 

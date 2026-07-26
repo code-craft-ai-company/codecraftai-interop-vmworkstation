@@ -2,7 +2,8 @@
     Property tests asserting deterministic argv construction.
 """
 
-from hypothesis import given, strategies as st
+from ccai.testbase.properties import given
+from ccai.testbase.properties import strategies as st
 
 from ccai.interfaces.icommandrunner import RunResult
 
