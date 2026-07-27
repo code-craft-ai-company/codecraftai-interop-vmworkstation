@@ -5,7 +5,6 @@
 
 import os
 
-import pytest
 
 from ccai.interfaces.icommandrunner import RunResult
 
@@ -20,6 +19,8 @@ from ccai.interop.vmworkstation import (
 from ccai.tests.interop.vmworkstation.mockcommandrunner import (
     MockCommandRunner,
 )
+
+from ccai import testbase
 
 
 _VMX = "/vms/u.vmx"
@@ -244,7 +245,7 @@ def test_tools_state_failure_raises() -> None:
     )
     client = VMWorkstationClient(runner=runner)
 
-    with pytest.raises(VMRunCommandError):
+    with testbase.raises(VMRunCommandError):
         client.tools_state(vmx_path=_VMX)
 
 
@@ -274,5 +275,5 @@ def test_list_running_failure_raises() -> None:
     )
     client = VMWorkstationClient(runner=runner)
 
-    with pytest.raises(VMRunCommandError):
+    with testbase.raises(VMRunCommandError):
         client.list_running()

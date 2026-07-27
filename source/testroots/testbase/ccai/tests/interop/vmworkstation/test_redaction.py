@@ -4,7 +4,6 @@
     messages returned to callers.
 """
 
-import pytest
 
 from ccai.interfaces.icommandrunner import RunResult
 
@@ -20,6 +19,8 @@ from ccai.interop.vmworkstation import (
 from ccai.tests.interop.vmworkstation.mockcommandrunner import (
     MockCommandRunner,
 )
+
+from ccai import testbase
 
 
 _VMX = "/vms/u.vmx"
@@ -102,7 +103,7 @@ def test_run_program_failure_exception_redacted() -> None:
     runner.seed(argv=dispatched, result=_fail())
     client = VMWorkstationClient(runner=runner)
 
-    with pytest.raises(VMRunCommandError) as excinfo:
+    with testbase.raises(VMRunCommandError) as excinfo:
         client.run_program_in_guest(
             vmx_path=_VMX,
             guest_credential=_cred(),

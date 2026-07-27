@@ -4,7 +4,6 @@
 
 import os
 
-import pytest
 
 from ccai.interfaces.icommandrunner import RunResult
 
@@ -22,6 +21,8 @@ from ccai.interop.vmworkstation.snapshots import (
 from ccai.tests.interop.vmworkstation.mockcommandrunner import (
     MockCommandRunner,
 )
+
+from ccai import testbase
 
 
 _VMX = "/vms/u.vmx"
@@ -122,18 +123,18 @@ def test_snapshot_list_failed_raises() -> None:
     )
     client = VMWorkstationClient(runner=runner)
 
-    with pytest.raises(VMRunCommandError):
+    with testbase.raises(VMRunCommandError):
         client.snapshot_list(vmx_path=_VMX)
 
 
 def test_snapshot_list_parse_bad_header() -> None:
-    with pytest.raises(VMWorkstationParseError):
+    with testbase.raises(VMWorkstationParseError):
         parse_list_snapshots(payload="garbage line" + os.linesep + "x")
 
 
 def test_snapshot_list_parse_count_mismatch() -> None:
     payload = os.linesep.join(["Total snapshots: 2", "only_one"])
-    with pytest.raises(VMWorkstationParseError):
+    with testbase.raises(VMWorkstationParseError):
         parse_list_snapshots(payload=payload)
 
 
@@ -161,7 +162,7 @@ def test_parse_list_running_many() -> None:
 
 
 def test_parse_list_running_bad_header() -> None:
-    with pytest.raises(VMWorkstationParseError):
+    with testbase.raises(VMWorkstationParseError):
         parse_list_running(payload="something else\n/vms/a.vmx")
 
 

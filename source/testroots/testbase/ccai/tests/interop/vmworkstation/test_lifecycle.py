@@ -2,7 +2,6 @@
     Tests for VM lifecycle methods on :class:`VMWorkstationClient`.
 """
 
-import pytest
 
 from ccai.interfaces.icommandrunner import RunResult
 
@@ -19,6 +18,8 @@ from ccai.interop.vmworkstation.aspectsvmworkstation import (
 from ccai.tests.interop.vmworkstation.mockcommandrunner import (
     MockCommandRunner,
 )
+
+from ccai import testbase
 
 
 _VMX = "/var/lib/vmware/vms/u22.vmx"
@@ -157,7 +158,7 @@ def test_lifecycle_failure_raises_when_aspect_set() -> None:
     client = _build_client(runner=runner)
     aspects = AspectsVMWorkstation(raise_on_failure=True)
 
-    with pytest.raises(VMRunCommandError) as exc_info:
+    with testbase.raises(VMRunCommandError) as exc_info:
         client.start(vmx_path=_VMX, aspects=aspects)
 
     assert exc_info.value.exit_code == 4
@@ -205,7 +206,7 @@ def test_host_type_fusion() -> None:
 
 def test_invalid_host_type_raises() -> None:
     runner = MockCommandRunner()
-    with pytest.raises(ValueError):
+    with testbase.raises(ValueError):
         VMWorkstationClient(runner=runner, host_type="bogus")
 
 
