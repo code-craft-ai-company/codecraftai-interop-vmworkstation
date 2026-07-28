@@ -9,7 +9,7 @@ reusability and scalability over quick fixes and fast delivery.
 
 # Rules
 - Look in '<repository>/specs' for specification files that steer development
-- Look in '<repository>/usersguide' for standards and conventions
+- Look in '<repository>/userguide' for standards and conventions
 - Look in '<repository>/prompts' for pre-built prompts
 - Files inside the .venv folder should not be modified
 - Place test results inside the .output folder
@@ -53,13 +53,13 @@ The package uses `unittest` with a `MockCommandRunner` keyed on `vmrun` arg pref
 No test requires a live Workstation install.
 
 # Code Naming Conventions
-The code naming conventions follow the [Code Craft AI Python Naming Conventions](usersguide/10-02-naming-conventions.rst).
+The code naming conventions follow the [Code Craft AI Python Naming Conventions](userguide/10-02-naming-conventions.rst).
 
 # Code Structure
-The code structure follows the [Code Craft AI Python Code Structure Standards](usersguide/10-01-code-organization.rst).
+The code structure follows the [Code Craft AI Python Code Structure Standards](userguide/10-01-code-organization.rst).
 
 # Coding Standards
-Follow the standards at [Coding Standards](usersguide/10-00-coding-standards.rst):
+Follow the standards at [Coding Standards](userguide/10-00-coding-standards.rst):
 - Sphinx-style docstrings
 - Explicit returns
 - Named-only parameters
