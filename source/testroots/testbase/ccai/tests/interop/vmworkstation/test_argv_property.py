@@ -9,7 +9,7 @@ from ccai.interfaces.icommandrunner import RunResult
 
 from ccai.interop.vmworkstation import VMWorkstationClient
 
-from ccai.tests.interop.vmworkstation.mockcommandrunner import (
+from .mockcommandrunner import (
     MockCommandRunner,
 )
 

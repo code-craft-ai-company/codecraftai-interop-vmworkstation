@@ -15,7 +15,7 @@ from ccai.interop.vmworkstation.aspectsvmworkstation import (
     AspectsVMWorkstation,
 )
 
-from ccai.tests.interop.vmworkstation.mockcommandrunner import (
+from .mockcommandrunner import (
     MockCommandRunner,
 )
 

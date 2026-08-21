@@ -16,7 +16,7 @@ from ccai.interop.vmworkstation import (
     redact_argv,
 )
 
-from ccai.tests.interop.vmworkstation.mockcommandrunner import (
+from .mockcommandrunner import (
     MockCommandRunner,
 )
 

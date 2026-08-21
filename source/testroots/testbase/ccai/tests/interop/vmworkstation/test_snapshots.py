@@ -18,7 +18,7 @@ from ccai.interop.vmworkstation.snapshots import (
     parse_list_running,
 )
 
-from ccai.tests.interop.vmworkstation.mockcommandrunner import (
+from .mockcommandrunner import (
     MockCommandRunner,
 )
 
