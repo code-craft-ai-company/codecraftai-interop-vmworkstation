@@ -2,7 +2,7 @@
 Code Craft AI Interop - VMware Workstation
 ==============================================
 
-The ``codecraftai-interop-vmworkstation`` package is a typed, aspect-driven client for VMware Workstation that drives the local ``vmrun`` CLI tool. Unlike its sibling ``codecraftai-interop-vsphere``, this package does **not** build on ``RestClientBase`` — Workstation has no REST API. Instead it uses ``ICommandRunner`` from ``codecraftai-interfaces`` to dispatch ``vmrun`` argv tuples and parse the textual output.
+The ``codecraftai-interop-vmworkstation`` package is a typed, aspect-driven client for VMware Workstation that drives the local ``vmrun`` CLI tool. Unlike its sibling ``codecraftai-interop-vsphere``, this package does **not** build on ``RestClientBase`` — Workstation has no REST API. Instead it uses ``ICommandRunner`` from ``codecraftai-foundations`` to dispatch ``vmrun`` argv tuples and parse the textual output.
 
 The package replaces the legacy ``VMWorkstationAgent`` that lived under ``codecraftai-landscaping/services/vmware/``.
 

@@ -19,7 +19,7 @@ reusability and scalability over quick fixes and fast delivery.
 - Only write tests to test product code, never to verify specs
 - Always prioritize the reuse of code from 'codecraftai-*' packages
 - This package's transport is the `vmrun` CLI driven through an `ICommandRunner`
-  (from `codecraftai-interfaces`). No REST. No native bindings.
+  (from `codecraftai-foundations`). No REST. No native bindings.
 - Named-only parameters at every public API boundary
 - No behaviour-modifying decorators; behaviour is controlled by `Aspects` passed by callers
 
