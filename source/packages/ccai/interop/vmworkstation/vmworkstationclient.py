@@ -27,10 +27,7 @@ from ccai.interfaces.icommandrunner import ICommandRunner, RunResult
 from ccai.interop.vmworkstation.aspectsvmworkstation import (
     AspectsVMWorkstation,
 )
-from ccai.interop.vmworkstation.exceptions import (
-    VMRunCommandError,
-    VMWorkstationParseError,
-)
+from ccai.interop.vmworkstation.exceptions import VMRunCommandError
 from ccai.interop.vmworkstation.guestcredential import GuestCredential
 from ccai.interop.vmworkstation.redaction import redact_argv
 from ccai.interop.vmworkstation.results import (
