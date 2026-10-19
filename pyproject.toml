@@ -22,6 +22,10 @@ dependencies = [
     "codecraftai-interop<2.0.0",
 ]
 
+[project.urls]
+Repository = "https://github.com/code-craft-ai-company/codecraftai-interop-vmworkstation"
+Issues = "https://github.com/code-craft-ai-company/codecraftai-interop-vmworkstation/issues"
+
 [dependency-groups]
 dev = [
     "codecraftai-testbase<2.0.0",
