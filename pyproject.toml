@@ -1,6 +1,6 @@
 [project]
 name = "codecraftai-interop-vmworkstation"
-version = "1.2.0"
+version = "1.2.1"
 description = "Code Craft AI - VMware Workstation Interop Package"
 readme = "README.rst"
 license = "LicenseRef-CodeCraftAI-Source-Available"
